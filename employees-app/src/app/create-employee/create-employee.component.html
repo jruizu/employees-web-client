@@ -1,0 +1,41 @@
+
+<main>
+  <mat-card class="card">
+  <h1 style="margin-bottom: 10pt;">{{EmployeeService.employee.id ? 'Editar' : 'Crear'}} Empleado</h1>
+    <form #employeesForm="ngForm" (ngSubmit)="createOrUpdateEmployee(employeesForm)">
+      <mat-form-field >
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre" name="name" [(ngModel)]="EmployeeService.employee.name">
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Identificación</mat-label>
+        <input matInput placeholder="Identificación" name="identification" [(ngModel)]="EmployeeService.employee.identification">
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Cargo</mat-label>
+        <input matInput placeholder="Cargo" name="_function" [(ngModel)]="EmployeeService.employee._function">
+      </mat-form-field>
+    
+      <mat-form-field >
+        <mat-label>Jefe</mat-label>
+        <mat-select name="boss_id" [(ngModel)]="EmployeeService.employee.boss_id">
+          <mat-option *ngFor="let employee of EmployeeService.employees" [value]="employee.id">
+            {{employee.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary">Guardar</button>
+      </div>
+      
+    </form>
+  </mat-card>
+  
+  <div style="margin-left: 30px;" *ngIf="!!EmployeeService.employee.subordinate">
+    <h3 style="margin-left: 10px;" >Empleados a Cargo</h3>
+    <mat-list *ngFor="let employee of EmployeeService.employee.subordinate">
+      <mat-list-item> {{employee.name}} </mat-list-item>
+     </mat-list>
+  </div>
+ 
+</main>
